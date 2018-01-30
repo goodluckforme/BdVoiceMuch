@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xiaomakj.bdvoice.ui.view.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <!--播放部分-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="播放部分"
+                android:textColor="#f00"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/mShowText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Hello World!"
+                android:text="shui jiao 多少钱一晚" />
+
+            <Button
+                android:id="@+id/speak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="播放文本" />
+
+            <Button
+                android:id="@+id/pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂停" />
+
+            <Button
+                android:id="@+id/resume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始" />
+
+            <Button
+                android:id="@+id/stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="停止" />
+
+            <Button
+                android:id="@+id/loadmodel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="离线发音—切换性别" />
+
+            <Button
+                android:id="@+id/batch_speak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="批量播放" />
+
+            <Button
+                android:id="@+id/synthesize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合成不播放" />
+
+            <Button
+                android:id="@+id/synthesize_speak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="显示录制后识别结果并播放" />
+
+            <TextView
+                android:id="@+id/result_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="显示录制后识别结果"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="#e5e5e5"></View>
+        <!--识别部分-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="识别部分"
+                android:textColor="#f00"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/result_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="显示录音结果"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/start_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始录音" />
+
+            <Button
+                android:id="@+id/stop_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="停止录音" />
+
+            <Button
+                android:id="@+id/cancel_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消录音" />
+
+        </LinearLayout>
+    </LinearLayout>
+</com.xiaomakj.bdvoice.ui.view.MyScrollView>
