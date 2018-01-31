@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 def releaseTime() {
@@ -10,68 +8,65 @@ def releaseTime() {
 
 android {
     compileSdkVersion 26
-
-    android {
-        compileSdkVersion 26
-        defaultConfig {
-            applicationId "com.xiaomakj.bdvoice"
-            minSdkVersion 15
-            targetSdkVersion 26
-            versionCode 1
-            versionName "1.0"
-            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    buildToolsVersion '26.0.3'
+    defaultConfig {
+        applicationId "com.xiaomakj.bdvoice"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        debug {
+            storeFile file("$rootDir/bdvoice.jks")
+            storePassword "bdvoice"
+            keyAlias "bdvoice"
+            keyPassword "bdvoice"
         }
-        signingConfigs {
-            debug {
-                storeFile file("$rootDir/bdvoice.jks")
-                storePassword "bdvoice"
-                keyAlias "bdvoice"
-                keyPassword "bdvoice"
-            }
 
-            release {
-                storeFile file("$rootDir/bdvoice.jks")
-                storePassword "bdvoice"
-                keyAlias "bdvoice"
-                keyPassword "bdvoice"
-            }
+        release {
+            storeFile file("$rootDir/bdvoice.jks")
+            storePassword "bdvoice"
+            keyAlias "bdvoice"
+            keyPassword "bdvoice"
         }
-        buildTypes {
-            release {
-                buildConfigField "boolean", "LOG_DEBUG", "false"
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                //签名
-                signingConfig signingConfigs.release
-                //apk命名
-                android.applicationVariants.all { variant ->
-                    variant.outputs.all { output ->
-                        outputFileName = "bdvoice-${variant.name}-${variant.versionName}-${releaseTime()}.apk"
-                    }
+    }
+    buildTypes {
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+            signingConfig signingConfigs.release
+            //apk命名
+            android.applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    outputFileName = "bdvoice-${variant.name}-${variant.versionName}-${releaseTime()}.apk"
                 }
             }
-            debug {
-                buildConfigField "boolean", "LOG_DEBUG", "true"
-                signingConfig signingConfigs.debug
-            }
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            signingConfig signingConfigs.debug
         }
     }
-
-    dependencies {
-        implementation fileTree(exclude: '*.bak', dir: 'libs')
-        //implementation fileTree(dir: 'libs', include: ['*.jar'])
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-        implementation 'com.android.support:appcompat-v7:26.1.0'
-        implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-        testImplementation 'junit:junit:4.12'
-        androidTestImplementation 'com.android.support.test:runner:1.0.1'
-        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-        // Kotlin
-        def anko_version = "0.10.1"
-        implementation "org.jetbrains.anko:anko:$anko_version"
-        //gson
-        implementation 'com.google.code.gson:gson:2.8.0'
-        compile "com.networkbench.newlens.agent.android:nbs.newlens.agent:2.8.0"
-    }
 }
+dependencies {
+    implementation fileTree(exclude: '*.bak', dir: 'libs')
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // Kotlin
+    def anko_version = "0.10.1"
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.0'
+    compile "com.networkbench.newlens.agent.android:nbs.newlens.agent:2.8.0"
+}
+

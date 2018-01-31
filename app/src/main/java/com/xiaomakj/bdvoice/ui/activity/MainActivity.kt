@@ -1,11 +1,13 @@
 package com.xiaomakj.bdvoice.ui.activity
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -18,15 +20,19 @@ import com.baidu.speech.asr.SpeechConstant
 import com.baidu.tts.chainofresponsibility.logger.LoggerProxy
 import com.baidu.tts.client.SpeechSynthesizer
 import com.baidu.tts.client.TtsMode
+import com.banyue.huiwanjia.util.launchActivity
 import com.networkbench.agent.impl.NBSAppAgent
 import com.xiaomakj.bdvoice.R
+import com.xiaomakj.bdvoice.common.App
 import com.xiaomakj.bdvoice.common.FileUtil
 import com.xiaomakj.bdvoice.common.InitConfig
+import com.xiaomakj.bdvoice.common.Logger
 import com.xiaomakj.bdvoice.complex.FileSaveListener
 import com.xiaomakj.bdvoice.complex.RecogEventAdapter
 import com.xiaomakj.bdvoice.complex.RecogResult
 import com.xiaomakj.bdvoice.complex.StatusRecogListener
 import com.xiaomakj.bdvoice.play.*
+import com.xiaomakj.bdvoice.recognition.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
@@ -45,9 +51,10 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        voicewave_view.setThemeStyle(BaiduASRDialogTheme.THEME_RED_DEEPBG)
+//        progress.setTheme(BaiduASRDialogTheme.THEME_RED_DEEPBG)
         NBSAppAgent.setLicenseKey("d4e2a375c16d4c33855fd654ed20bb5a").withLocationServiceEnabled(true).start(this.applicationContext)
         initPermission()
-
         //initialTts_play()
         initialTts_save()
         //播放部分
@@ -73,9 +80,11 @@ open class MainActivity : AppCompatActivity() {
             synthesize("luyin1")
         }
         //合成部分
-        initialAsr()
+        //initialAsr()
+        initialAsr_recog()
         start_record.onClick {
-            startAsr()
+            //startAsr()
+            launchActivity<BaiduASRDigitalDialog>(1112) { }
         }
         stop_record.onClick {
             stop_record()
@@ -84,7 +93,6 @@ open class MainActivity : AppCompatActivity() {
             cancel_record()
         }
     }
-
 
     /*
      * 停止合成引擎。即停止播放，合成，清空内部合成队列。
@@ -342,6 +350,10 @@ open class MainActivity : AppCompatActivity() {
 
 
     private var myRecognizer: MyRecognizer? = null
+    /*
+     * 本Activity中是否需要调用离线命令词功能。根据此参数，判断是否需要调用SDK的ASR_KWS_LOAD_ENGINE事件
+     */
+    protected var enableOffline = false
 
     private fun initialAsr() {
         //val listener = TtsRecogListener(synthesizer)
@@ -370,6 +382,24 @@ open class MainActivity : AppCompatActivity() {
         Log.i("MainActivity", "识别引擎初始化结束")
     }
 
+    private fun initialAsr_recog() {
+        val listener = ChainRecogListener()
+        /**
+         * 有2个listner，一个是用户自己的业务逻辑，如MessageStatusRecogListener。另一个是UI对话框的。
+         * 使用这个ChainRecogListener把两个listener和并在一起
+         */
+        // DigitalDialogInput 输入 ，MessageStatusRecogListener可替换为用户自己业务逻辑的listener
+        listener.addListener(MessageStatusRecogListener(mainHandler))
+        myRecognizer = MyRecognizer(this, listener)
+        val sp = PreferenceManager.getDefaultSharedPreferences(this)
+        val params = OnlineRecogParams(this).fetch(sp) // params可以手动填入
+        val input = DigitalDialogInput(myRecognizer, listener, params)
+        // 在BaiduASRDialog中读取
+        (applicationContext as App).digitalDialogInput = input
+        if (enableOffline) {
+            myRecognizer?.loadOfflineEngine(OfflineRecogParams.fetchOfflineParams())
+        }
+    }
 
     private fun startAsr() {
         val params = TreeMap<String, Any>()
@@ -390,5 +420,22 @@ open class MainActivity : AppCompatActivity() {
 
     private fun cancel_record() {
         myRecognizer?.cancel()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.i("MainActivity", "requestCode" + requestCode)
+        if (requestCode == 1112) {
+            var message = "对话框的识别结果："
+            if (resultCode == RESULT_OK) {
+                val results = data?.getStringArrayListExtra("results")
+                if (results != null && results.size > 0) {
+                    message += results[0]
+                }
+            } else {
+                message += "没有结果"
+            }
+            result_confirm.text = message
+            Logger.info(message)
+        }
     }
 }
