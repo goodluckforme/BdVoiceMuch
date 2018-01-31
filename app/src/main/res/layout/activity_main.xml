@@ -35,7 +35,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Hello World!"
-                android:text="shui jiao 多少钱一晚" />
+                android:text="多少钱" />
 
             <Button
                 android:id="@+id/speak"
@@ -242,6 +242,12 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开启命令离线词：false" />
+
+            <Button
                 android:id="@+id/start_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -261,5 +267,142 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <!-- <LinearLayout
+                android:id="@+id/dialog_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:tag="main_reflect">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:tag="recognizing_reflect">
+
+                    <FrameLayout
+                        android:id="@+id/tips_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:tag="tips_text"
+                            android:textColor="#3e3e3e"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:tag="tips_wait_net"
+
+                            android:textColor="#424242"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:cursorVisible="true"
+                            android:hint="@null"
+                            android:inputType="none"
+                            android:maxLines="3"
+
+                            android:paddingTop="14dp"
+                            android:tag="partial_text"
+                            android:textColor="#3e3e3e"
+                            android:textSize="18sp"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <com.xiaomakj.bdvoice.ui.view.SDKAnimationView
+                        android:id="@+id/voicewave_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:tag="voicewave_view" />
+                    &lt;!&ndash;  &ndash;&gt;
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dip"
+                        android:tag="logo_1"
+                        android:textColor="#c1c1c1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="center_horizontal"
+                        android:paddingBottom="5dp"
+                        android:tag="suggestion_tips"
+                        android:textColor="#c1c1c1"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <com.xiaomakj.bdvoice.ui.view.SDKProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="progress" />
+                &lt;!&ndash;
+                     <ProgressBar
+                    android:tag="progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:visibility="invisible" />
+                &ndash;&gt;
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:gravity="center"
+                    android:tag="speak_complete"
+                    android:textSize="18sp" />
+            </LinearLayout>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="待完善部分"
+                android:textColor="#f00"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="唤醒词" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="语义解析" />
+        </LinearLayout>
     </LinearLayout>
 </com.xiaomakj.bdvoice.ui.view.MyScrollView>

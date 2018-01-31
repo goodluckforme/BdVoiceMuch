@@ -86,6 +86,14 @@ open class MainActivity : AppCompatActivity() {
             //startAsr()
             launchActivity<BaiduASRDigitalDialog>(1112) { }
         }
+        offline.onClick {
+            toast("这个只是开启命令离线词 不存在纯粹的离线识别，并且目前没搞明白离线词的具体意义")
+            myRecognizer?.release()
+            enableOffline = !enableOffline
+            initialAsr_recog()
+            offline.text="开启命令离线词：$enableOffline"
+        }
+        offline.text="开启命令离线词：$enableOffline"
         stop_record.onClick {
             stop_record()
         }
@@ -302,7 +310,6 @@ open class MainActivity : AppCompatActivity() {
             val result = synthesizer?.synthesize(text)
             checkResult(result ?: return, "synthesize")
         }
-
     }
 
     /**
@@ -345,7 +352,6 @@ open class MainActivity : AppCompatActivity() {
         myRecognizer?.release()
         Log.i("MainActivity", "onDestory")
         super.onDestroy()
-
     }
 
 
